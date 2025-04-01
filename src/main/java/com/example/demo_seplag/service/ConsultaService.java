@@ -29,7 +29,7 @@ public class ConsultaService {
     private FotoService fotoService;
 
     public List<ServidorEfetivoDTO> getServidoresPorUnidade(Long unidadeId) {
-        List<Lotacao> lotacoes = lotacaoRepository.findByUnidadeId(unidadeId);
+        List<Lotacao> lotacoes = lotacaoRepository.findByUnidadeUnidId(unidadeId);
         if (lotacoes.isEmpty()) {
             throw new NotFoundException("Nenhum servidor encontrado para a unidade " + unidadeId);
         }

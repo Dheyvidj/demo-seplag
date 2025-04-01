@@ -19,11 +19,10 @@ public class EnderecoController {
 
     @GetMapping
     public Unidade getEnderecoFuncional(@RequestParam("nome") String nomeParcial) {
-        // Exemplo: busca um servidor cujo nome contenha o valor e retorne o endereço da unidade em que ele está lotado.
         return servidorEfetivoRepository.findAll().stream()
                 .filter(se -> se.getPessoa().getNome().toLowerCase().contains(nomeParcial.toLowerCase()))
                 .findFirst()
-                .map(se -> lotacaoRepository.findByServidorEfetivoId(se.getId()))
+                .flatMap(se -> lotacaoRepository.findByServidorEfetivoId(se.getId()))
                 .map(lot -> lot.getUnidade())
                 .orElseThrow(() -> new NotFoundException("Endereço funcional não encontrado para o nome informado"));
     }

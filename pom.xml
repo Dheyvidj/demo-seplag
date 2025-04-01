@@ -13,7 +13,6 @@
 
 	<properties>
 		<java.version>17</java.version>
-		<spring-boot.version>2.7.8</spring-boot.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
@@ -74,8 +73,12 @@
 
 		<dependency>
 			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.6.15</version>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-kotlin</artifactId>
 		</dependency>
 
 		<dependency>
@@ -88,8 +91,6 @@
 			<artifactId>jaxb-runtime</artifactId>
 			<version>2.3.1</version>
 		</dependency>
-
-		<!-- Outros, se necessário -->
 	</dependencies>
 
 	<build>
@@ -110,7 +111,6 @@
 				<version>3.3.1</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<!-- Opcional: caso queira não filtrar arquivos com extensão .properties -->
 					<nonFilteredFileExtensions>
 						<nonFilteredFileExtension>properties</nonFilteredFileExtension>
 					</nonFilteredFileExtensions>
