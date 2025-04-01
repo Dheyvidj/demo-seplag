@@ -1,0 +1,1158 @@
+{
+	"info": {
+		"_postman_id": "8d751c8e-21ae-44b7-b8ad-93984dd97c07",
+		"name": "Demo Seplag API",
+		"description": "Collection com os endpoints da API Demo Seplag",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27392341",
+		"_collection_link": "https://interstellar-space-734406.postman.co/workspace/Martinello-meu~1bf91e7d-676b-4d6a-8e22-1fd5be62dd30/collection/27392341-8d751c8e-21ae-44b7-b8ad-93984dd97c07?action=share&source=collection_link&creator=27392341"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code === 200){",
+									"    const jwt_token = pm.response.json().accessToken;",
+									"    pm.collectionVariables.set(\"jwt_token\", jwt_token);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refreshToken\": \"\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/refresh",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consulta",
+			"item": [
+				{
+					"name": "Servidores por Unidade",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/consultas/servidores-por-unidade/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"consultas",
+								"servidores-por-unidade",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Foto",
+			"item": [
+				{
+					"name": "Upload Foto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "foto",
+									"value": "",
+									"type": "file"
+								},
+								{
+									"key": "pessoaId",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/fotos/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"fotos",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get URL Temporária",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/fotos/url-temporaria?nomeObjeto={{nomeObjeto}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"fotos",
+								"url-temporaria"
+							],
+							"query": [
+								{
+									"key": "nomeObjeto",
+									"value": "{{nomeObjeto}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Servidor Efetivo",
+			"item": [
+				{
+					"name": "List All Servidor Efetivo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/servidor-efetivo?page=0&size=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"servidor-efetivo"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Servidor Efetivo by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/servidor-efetivo/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"servidor-efetivo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Servidor Efetivo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"matricula\": \"123456\",\n    \"pessoa\": { \"id\": 1 }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/servidor-efetivo",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"servidor-efetivo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Servidor Efetivo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"matricula\": \"654321\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/servidor-efetivo/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"servidor-efetivo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Pessoa",
+			"item": [
+				{
+					"name": "Create Pessoa",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"João Silva\",\n    \"dataNascimento\": \"1990-01-01\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pessoa",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pessoa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Pessoa",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"João Souza\",\n    \"dataNascimento\": \"1990-01-01\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/pessoa/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pessoa",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Pessoas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pessoa",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pessoa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pessoa com Fotos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/pessoa/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"pessoa",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Endereço Funcional",
+			"item": [
+				{
+					"name": "Get Endereço Funcional",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/endereco-funcional?nome=joão",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"endereco-funcional"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "joão"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Servidor Temporário",
+			"item": [
+				{
+					"name": "List All Servidor Temporário",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/servidor-temporario",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"servidor-temporario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Servidor Temporário by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/servidor-temporario/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"servidor-temporario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Servidor Temporário",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"stDataInicio\": \"2025-04-01\",\n    \"stDataFim\": \"2025-04-30\",\n    \"pessoa\": { \"id\": 1 }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/servidor-temporario",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"servidor-temporario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Servidor Temporário",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"stDataInicio\": \"2025-04-05\",\n    \"stDataFim\": \"2025-04-25\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/servidor-temporario/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"servidor-temporario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Servidor Temporário",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/servidor-temporario/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"servidor-temporario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Unidade",
+			"item": [
+				{
+					"name": "List All Unidade",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/unidade",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"unidade"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Unidade by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/unidade/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"unidade",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Unidade",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"unidSigla\": \"UNI\",\n    \"unidNome\": \"Unidade Exemplo\",\n    \"endereco\": { \"endId\": 1 }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/unidade",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"unidade"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Unidade",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"unidSigla\": \"UNI2\",\n    \"unidNome\": \"Unidade Exemplo 2\",\n    \"endereco\": { \"endId\": 1 }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/unidade/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"unidade",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Unidade",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/unidade/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"unidade",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Lotacao",
+			"item": [
+				{
+					"name": "List All Lotacao",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/lotacao",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"lotacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lotacao by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/lotacao/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"lotacao",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Lotacao",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"lotPortaria\": \"1234\",\n    \"unidade\": { \"unidId\": 1 },\n    \"servidorEfetivo\": { \"id\": 1 }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/lotacao",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"lotacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Lotacao",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"lotPortaria\": \"4321\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/lotacao/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"lotacao",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Lotacao",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/lotacao/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"lotacao",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "jwt_token",
+			"value": ""
+		},
+		{
+			"key": "nomeObjeto",
+			"value": ""
+		}
+	]
+}

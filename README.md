@@ -56,8 +56,9 @@ Nesta interface, você poderá visualizar e testar todos os endpoints da API.
 
 ### Collection Postman
 
-Uma collection do Postman com todos os endpoints da API está incluída no repositório (por exemplo, o arquivo Demo Seplag
-API.postman_collection.json).
+Uma collection do Postman com todos os endpoints da API está incluída no repositório com o nome:
+``Demo Seplag API.postman_collection.json``.
+
 Para utilizá-la:
 
 1. Importe a collection no Postman.
